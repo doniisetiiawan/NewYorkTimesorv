@@ -9,7 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import NewsFeedContainer from '../containers/NewsFeedContainer';
-import Search from './Search';
+import SearchContainer from '../containers/SearchContainer';
 import * as globalStyles from '../styles/global';
 import AppText from './AppText';
 
@@ -92,7 +92,7 @@ export default class HomeScreen extends Component {
             name="NewsFeed"
             component={NewsFeedContainer}
           />
-          <Tab.Screen name="Search" component={Search} />
+          <Tab.Screen name="Search" component={SearchContainer} />
           <Tab.Screen
             name="Bookmarks"
             component={Bookmarks}

@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import * as globalStyles from '../styles/global';
+import NewsFeed from './NewsFeed';
 
 const styles = StyleSheet.create({
   input: {
@@ -28,6 +30,11 @@ export default class Search extends Component {
     };
   }
 
+  searchNews = (text) => {
+    this.setState({ searchText: text });
+    this.props.searchNews(text);
+  };
+
   render() {
     return (
       <View
@@ -36,13 +43,28 @@ export default class Search extends Component {
         <View style={styles.search}>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => this.setState({ searchText: text })}
+            onChangeText={(text) => this.searchNews(text)}
             value={this.state.searchText}
             placeholder="Search"
             placeholderTextColor={globalStyles.MUTED_COLOR}
           />
         </View>
+        {this.props.filteredNews.length > 0 ? (
+          <NewsFeed
+            news={this.props.filteredNews}
+            listStyles={{}}
+          />
+        ) : null}
       </View>
     );
   }
 }
+
+Search.propTypes = {
+  filteredNews: PropTypes.arrayOf(PropTypes.object),
+  searchNews: PropTypes.func.isRequired,
+};
+
+Search.defaultProps = {
+  filteredNews: [],
+};
