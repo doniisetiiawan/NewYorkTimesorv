@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import {
-  TabBarIOS,
-  Text,
   Alert,
-  Vibration,
   StatusBar,
+  Vibration,
   View,
-  TextInput,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import NewsFeed from './NewsFeed';
+import NewsFeedContainer from '../containers/NewsFeed';
 import Search from './Search';
 import * as globalStyles from '../styles/global';
-import Byline from "./Byline";
-import AppText from "./AppText";
+import AppText from './AppText';
 
 // Set the status bar for iOS to light
 StatusBar.setBarStyle('light-content');
@@ -94,7 +90,7 @@ export default class HomeScreen extends Component {
         >
           <Tab.Screen
             name="NewsFeed"
-            component={NewsFeed}
+            component={NewsFeedContainer}
           />
           <Tab.Screen name="Search" component={Search} />
           <Tab.Screen

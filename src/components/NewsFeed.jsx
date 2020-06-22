@@ -39,6 +39,18 @@ export default class NewsFeed extends Component {
     };
   }
 
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount = () => {
+    this.refresh();
+  };
+
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      dataSource: nextProps.news,
+    });
+  };
+
   onModalClose = () => {
     this.setState({
       modalVisible: false,
@@ -51,6 +63,12 @@ export default class NewsFeed extends Component {
       modalVisible: true,
       modalUrl: url,
     });
+  };
+
+  refresh = () => {
+    if (this.props.loadNews) {
+      this.props.loadNews();
+    }
   };
 
   renderModal = () => (
@@ -103,11 +121,13 @@ export default class NewsFeed extends Component {
 
 NewsFeed.propTypes = {
   listStyles: ViewPropTypes.style,
+  loadNews: PropTypes.func,
   news: PropTypes.arrayOf(PropTypes.object),
 };
 
 NewsFeed.defaultProps = {
   listStyles: {},
+  loadNews: () => {},
   news: [
     {
       id: 1,
