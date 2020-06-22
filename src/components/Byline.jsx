@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 const Byline = ({ date, author, location }) => (
   <View>
     <View style={styles.row}>
-      <SmallText>{date.toLocaleDateString()}</SmallText>
+      <SmallText>{date}</SmallText>
       <SmallText>{author}</SmallText>
     </View>
 
@@ -36,7 +36,7 @@ export default Byline;
 
 Byline.propTypes = {
   author: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   location: PropTypes.string,
 };
 

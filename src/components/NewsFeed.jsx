@@ -128,29 +128,5 @@ NewsFeed.propTypes = {
 NewsFeed.defaultProps = {
   listStyles: {},
   loadNews: () => {},
-  news: [
-    {
-      id: 1,
-      title: 'React Native',
-      imageUrl:
-        'https://github.com/StevenBarquet/gecko-page-2/blob/30e401e711cd86e88b4c981f9ac90e6d576175d0/src/images/home/tech/react.png?raw=true',
-      description:
-        'Build Native Mobile Apps using JavaScript and React',
-      date: new Date(),
-      author: 'Facebook',
-      location: 'Menlo Park, California',
-      url: 'https://facebook.github.io/react-native',
-    },
-    {
-      id: 2,
-      title: 'Packt Publishing',
-      imageUrl:
-        'https://www.packtpub.com/media/logo/stores/1/logo.png',
-      description: 'Stay Relevant',
-      date: new Date(),
-      author: 'Packt Publishing',
-      location: 'Birmingham, UK',
-      url: 'https://www.packtpub.com/',
-    },
-  ],
+  news: [],
 };

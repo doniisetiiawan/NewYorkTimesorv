@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  ViewPropTypes,
 } from 'react-native';
 import Byline from './Byline';
 import AppText from './AppText';
@@ -76,17 +77,14 @@ export default class NewsItem extends Component {
 
 NewsItem.propTypes = {
   author: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   description: PropTypes.string,
   imageUrl: PropTypes.string,
   index: PropTypes.number.isRequired,
   item: PropTypes.object,
   location: PropTypes.string,
   onPress: PropTypes.func.isRequired,
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]),
+  style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
 };
 
@@ -95,5 +93,5 @@ NewsItem.defaultProps = {
   imageUrl: '',
   item: {},
   location: '',
-  style: null,
+  style: {},
 };
