@@ -33,15 +33,14 @@ export default class NewsItem extends Component {
   };
 
   render() {
+    const { style, onPress } = this.props;
     const {
-      style,
-      imageUrl,
-      title,
       author,
       date,
-      location,
       description,
-      onPress,
+      imageUrl,
+      location,
+      title,
     } = this.props;
 
     const accentColor = globalStyles.ACCENT_COLORS[
@@ -78,14 +77,23 @@ export default class NewsItem extends Component {
 NewsItem.propTypes = {
   author: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
-  description: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  imageUrl: PropTypes.string,
   index: PropTypes.number.isRequired,
-  location: PropTypes.string.isRequired,
+  item: PropTypes.object,
+  location: PropTypes.string,
   onPress: PropTypes.func.isRequired,
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
-  ]).isRequired,
+  ]),
   title: PropTypes.string.isRequired,
+};
+
+NewsItem.defaultProps = {
+  description: '',
+  imageUrl: '',
+  item: {},
+  location: '',
+  style: null,
 };

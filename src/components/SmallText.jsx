@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import AppText from './AppText';
 
 const styles = StyleSheet.create({
@@ -18,9 +18,11 @@ const SmallText = ({ children, style, ...rest }) => (
 export default SmallText;
 
 SmallText.propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]).isRequired,
+  children: PropTypes.node,
+  style: Text.propTypes.style,
+};
+
+SmallText.defaultProps = {
+  children: null,
+  style: {},
 };

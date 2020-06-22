@@ -37,5 +37,9 @@ export default Byline;
 Byline.propTypes = {
   author: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
-  location: PropTypes.string.isRequired,
+  location: PropTypes.string,
+};
+
+Byline.defaultProps = {
+  location: '',
 };

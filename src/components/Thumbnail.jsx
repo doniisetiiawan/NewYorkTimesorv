@@ -24,7 +24,7 @@ const Thumbnail = ({
   url,
 }) => {
   const imageStyle = {
-    backgroundColor: `${accentColor}77`, // adds some transparency to the color
+    backgroundColor: `${accentColor}`, // adds some transparency to the color
   };
   const TitleComponent = (
     <Title style={styles.title}>{titleText}</Title>
@@ -39,14 +39,15 @@ const Thumbnail = ({
       ]}
     >
       {url.length > 0 ? (
-        <Image
-          style={[styles.image, imageStyle]}
-          source={{
-            uri: url,
-          }}
-        >
+        <>
+          <Image
+            style={[styles.image, imageStyle]}
+            source={{
+              uri: url,
+            }}
+          />
           {TitleComponent}
-        </Image>
+        </>
       ) : (
         <View style={[styles.image, imageStyle]}>
           {TitleComponent}
@@ -63,7 +64,12 @@ Thumbnail.propTypes = {
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
-  ]).isRequired,
-  titleText: PropTypes.string.isRequired,
+  ]),
+  titleText: PropTypes.string,
   url: PropTypes.string.isRequired,
+};
+
+Thumbnail.defaultProps = {
+  style: null,
+  titleText: '',
 };

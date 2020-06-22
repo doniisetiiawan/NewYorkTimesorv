@@ -6,7 +6,6 @@ import * as globalStyles from '../styles/global';
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: 'HelveticaNeue-CondensedBold',
     fontSize: 18,
     color: globalStyles.HEADER_TEXT_COLOR,
     backgroundColor: `${globalStyles.BG_COLOR}99`,
@@ -22,9 +21,14 @@ const Title = ({ style, children }) => (
 export default Title;
 
 Title.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
-  ]).isRequired,
+  ]),
+};
+
+Title.defaultProps = {
+  children: null,
+  style: null,
 };

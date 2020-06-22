@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  ListView,
+  FlatList,
   Modal,
   StyleSheet,
   TouchableOpacity,
   View,
-  WebView,
+  ViewPropTypes,
 } from 'react-native';
+import { WebView } from 'react-native-webview';
 import NewsItem from './NewsItem';
 import SmallText from './SmallText';
 import * as globalStyles from '../styles/global';
@@ -73,28 +74,26 @@ export default class NewsFeed extends Component {
     </Modal>
   );
 
-  renderRow = (rowData, ...rest) => {
-    const index = parseInt(rest[1], 10);
-    return (
-      <NewsItem
-        onPress={() => this.onModalOpen(rowData.url)}
-        style={styles.newsItem}
-        index={index}
-        {...rowData}
-      />
-    );
-  };
+  renderRow = (rowData, ...rest) => (
+    <NewsItem
+      onPress={() => this.onModalOpen(rowData.item.url)}
+      style={styles.newsItem}
+      index={rowData.index}
+      {...rowData.item}
+    />
+  );
 
   render() {
     return (
       <View
         style={globalStyles.COMMON_STYLES.pageContainer}
       >
-        <ListView
-          enableEmptySections
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
+        <FlatList
+          ListEmptyComponent
+          data={this.state.dataSource}
+          renderItem={this.renderRow}
           style={this.props.listStyles}
+          keyExtractor={(item, index) => index.toString()}
         />
         {this.renderModal()}
       </View>
@@ -103,19 +102,18 @@ export default class NewsFeed extends Component {
 }
 
 NewsFeed.propTypes = {
-  listStyles: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]).isRequired,
+  listStyles: ViewPropTypes.style,
   news: PropTypes.arrayOf(PropTypes.object),
 };
 
 NewsFeed.defaultProps = {
+  listStyles: {},
   news: [
     {
+      id: 1,
       title: 'React Native',
       imageUrl:
-        'https://facebook.github.io/react/img/logo_og.png',
+        'https://github.com/StevenBarquet/gecko-page-2/blob/30e401e711cd86e88b4c981f9ac90e6d576175d0/src/images/home/tech/react.png?raw=true',
       description:
         'Build Native Mobile Apps using JavaScript and React',
       date: new Date(),
@@ -124,9 +122,10 @@ NewsFeed.defaultProps = {
       url: 'https://facebook.github.io/react-native',
     },
     {
+      id: 2,
       title: 'Packt Publishing',
       imageUrl:
-        'https://www.packtpub.com/sites/default/files/packt_logo.png',
+        'https://www.packtpub.com/media/logo/stores/1/logo.png',
       description: 'Stay Relevant',
       date: new Date(),
       author: 'Packt Publishing',
