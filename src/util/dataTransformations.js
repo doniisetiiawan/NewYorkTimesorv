@@ -31,7 +31,7 @@ export const reshapeNewsData = (news) => news.map(
       multimedia,
       'thumbLarge',
     ),
-    date: moment(published_date).format('MMM Do YYYY'),
+    date: moment(published_date).format('MMM DD YYYY'),
     title,
     url,
   }),

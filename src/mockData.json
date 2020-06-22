@@ -5,11 +5,11 @@
       "abstract": "Build Native Mobile Apps using JavaScript and React",
       "url": "https://facebook.github.io/react-native",
       "byline": "By Facebook",
-      "published_date": "2016-05-20T00:00:00-5:00",
+      "published_date": "2016-05-20",
       "geo_facet": ["Menlo Park, California"],
       "multimedia": [
         {
-          "url": "https://facebook.github.io/react/img/logo_og.png",
+          "url": "https://github.com/StevenBarquet/gecko-page-2/blob/30e401e711cd86e88b4c981f9ac90e6d576175d0/src/images/home/tech/react.png?raw=true",
           "format": "thumbLarge"
         }
       ]
@@ -19,11 +19,11 @@
       "abstract": "Stay Relevant",
       "url": "https://www.packtpub.com/",
       "byline": "By Packt Publishing",
-      "published_date": "2016-05-20T00:00:00-5:00",
+      "published_date": "2016-05-20",
       "geo_facet": ["Birmingham, UK"],
       "multimedia": [
         {
-          "url": "https://www.packtpub.com/sites/default/files/packt_logo.png",
+          "url": "https://www.packtpub.com/media/logo/stores/1/logo.png",
           "format": "thumbLarge"
         }
       ]

@@ -8,7 +8,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import NewsFeedContainer from '../containers/NewsFeed';
+import NewsFeedContainer from '../containers/NewsFeedContainer';
 import Search from './Search';
 import * as globalStyles from '../styles/global';
 import AppText from './AppText';
