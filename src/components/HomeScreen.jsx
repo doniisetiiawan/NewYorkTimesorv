@@ -5,7 +5,6 @@ import {
   Vibration,
   View,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import NewsFeedContainer from '../containers/NewsFeedContainer';
@@ -51,54 +50,55 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-              if (route.name === 'NewsFeed') {
-                iconName = focused
-                  ? 'ios-navigate'
-                  : 'ios-navigate';
-              }
-              if (route.name === 'Search') {
-                iconName = focused
-                  ? 'ios-search'
-                  : 'ios-search';
-              }
-              if (route.name === 'Bookmarks') {
-                iconName = focused
-                  ? 'ios-bookmarks'
-                  : 'ios-bookmarks';
-              }
+            if (route.name === 'NewsFeed') {
+              iconName = focused
+                ? 'ios-navigate'
+                : 'ios-navigate';
+            }
+            if (route.name === 'Search') {
+              iconName = focused
+                ? 'ios-search'
+                : 'ios-search';
+            }
+            if (route.name === 'Bookmarks') {
+              iconName = focused
+                ? 'ios-bookmarks'
+                : 'ios-bookmarks';
+            }
 
-              // You can return any component that you like here!
-              return (
-                <Ionicons
-                  name={iconName}
-                  size={size}
-                  color={color}
-                />
-              );
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: globalStyles.LINK_COLOR,
-            inactiveTintColor: globalStyles.BAR_COLOR,
-          }}
-        >
-          <Tab.Screen
-            name="NewsFeed"
-            component={NewsFeedContainer}
-          />
-          <Tab.Screen name="Search" component={SearchContainer} />
-          <Tab.Screen
-            name="Bookmarks"
-            component={Bookmarks}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+            // You can return any component that you like here!
+            return (
+              <Ionicons
+                name={iconName}
+                size={size}
+                color={color}
+              />
+            );
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: globalStyles.LINK_COLOR,
+          inactiveTintColor: globalStyles.BAR_COLOR,
+        }}
+      >
+        <Tab.Screen
+          name="NewsFeed"
+          component={NewsFeedContainer}
+        />
+        <Tab.Screen
+          name="Search"
+          component={SearchContainer}
+        />
+        <Tab.Screen
+          name="Bookmarks"
+          component={Bookmarks}
+        />
+      </Tab.Navigator>
     );
   }
 }

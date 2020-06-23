@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loadingContainer: {
+    marginTop: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
