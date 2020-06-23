@@ -53,6 +53,7 @@ export default class Search extends Component {
           <NewsFeed
             news={this.props.filteredNews}
             listStyles={{}}
+            showLoadingSpinner={false}
           />
         ) : null}
       </View>

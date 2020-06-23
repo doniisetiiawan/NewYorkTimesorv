@@ -20,7 +20,7 @@ export const COMMON_STYLES = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     paddingTop: 22,
-    marginBottom: 48,
+    // marginBottom: 48,
     marginHorizontal: 0,
     paddingHorizontal: 10,
   },
