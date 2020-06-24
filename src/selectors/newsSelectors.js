@@ -6,6 +6,8 @@ import {
 
 const newsSelector = (state) => state.news;
 
+const bookmarksSelector = (state) => state.bookmarks;
+
 const reshapeNewsSelector = createSelector(
   [newsSelector],
   reshapeNewsData,
@@ -14,6 +16,13 @@ const reshapeNewsSelector = createSelector(
 export const allNewsSelector = createSelector(
   [reshapeNewsSelector],
   (newsItems) => newsItems,
+);
+
+export const bookmarkedNewsSelector = createSelector(
+  [allNewsSelector, bookmarksSelector],
+  (newsItems, bookmarks) => newsItems.filter(
+    (newsItem) => bookmarks.indexOf(newsItem.url) > -1,
+  ),
 );
 
 const searchTermSelector = (state) => state.searchTerm;

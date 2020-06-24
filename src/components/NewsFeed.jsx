@@ -13,6 +13,7 @@ import {
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 import * as Linking from 'expo-linking';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import NewsItem from './NewsItem';
 import SmallText from './SmallText';
 import * as globalStyles from '../styles/global';
@@ -137,12 +138,15 @@ export default class NewsFeed extends Component {
   );
 
   renderRow = (rowData) => (
-    <NewsItem
-      onPress={() => this.onModalOpen(rowData.item.url)}
-      style={styles.newsItem}
-      index={rowData.index}
-      {...rowData.item}
-    />
+    <ActionSheetProvider>
+      <NewsItem
+        onPress={() => this.onModalOpen(rowData.item.url)}
+        onBookmark={() => this.props.addBookmark(rowData.item.url)}
+        style={styles.newsItem}
+        index={rowData.index}
+        {...rowData.item}
+      />
+    </ActionSheetProvider>
   );
 
   render() {
@@ -203,6 +207,7 @@ export default class NewsFeed extends Component {
 }
 
 NewsFeed.propTypes = {
+  addBookmark: PropTypes.func.isRequired,
   listStyles: ViewPropTypes.style,
   loadNews: PropTypes.func,
   news: PropTypes.arrayOf(PropTypes.object),

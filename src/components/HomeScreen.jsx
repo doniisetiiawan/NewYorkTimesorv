@@ -11,6 +11,7 @@ import NewsFeedContainer from '../containers/NewsFeedContainer';
 import SearchContainer from '../containers/SearchContainer';
 import * as globalStyles from '../styles/global';
 import AppText from './AppText';
+import BookmarksContainer from '../containers/BookmarksContainer';
 
 // Set the status bar for iOS to light
 StatusBar.setBarStyle('light-content');
@@ -41,13 +42,6 @@ function Bookmarks() {
 const Tab = createBottomTabNavigator();
 
 export default class HomeScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tab: 'newsFeed',
-    };
-  }
-
   render() {
     return (
       <Tab.Navigator
@@ -96,7 +90,7 @@ export default class HomeScreen extends Component {
         />
         <Tab.Screen
           name="Bookmarks"
-          component={Bookmarks}
+          component={BookmarksContainer}
         />
       </Tab.Navigator>
     );

@@ -1,17 +1,19 @@
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadNews } from '../actions/newsActions';
+import { connect } from 'react-redux';
+import { bookmarkedNewsSelector } from '../selectors/newsSelectors';
+import {
+  addBookmark,
+  loadBookmarks,
+} from '../actions/bookmarkActions';
 import NewsFeed from '../components/NewsFeed';
-import { allNewsSelector } from '../selectors/newsSelectors';
-import { addBookmark } from '../actions/bookmarkActions';
 
 const mapStateToProps = (state) => ({
-  news: allNewsSelector(state),
+  news: bookmarkedNewsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {
-    loadNews,
+    loadBookmarks,
     addBookmark,
   },
   dispatch,

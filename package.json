@@ -8,12 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/react-native-action-sheet": "^3.8.0",
     "@react-native-community/masked-view": "0.1.6",
     "@react-native-community/netinfo": "^5.9.3",
     "@react-navigation/bottom-tabs": "^5.5.2",
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
     "expo": "~37.0.3",
+    "expo-linking": "^1.0.3",
     "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "~16.9.0",

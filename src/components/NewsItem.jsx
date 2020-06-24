@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  ActionSheetIOS,
   StyleSheet,
   TouchableOpacity,
   View,
   ViewPropTypes,
 } from 'react-native';
+import { connectActionSheet } from '@expo/react-native-action-sheet';
 import Byline from './Byline';
 import AppText from './AppText';
 import Thumbnail from './Thumbnail';
@@ -21,15 +21,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class NewsItem extends Component {
+class NewsItem extends Component {
   onLongPress = () => {
-    ActionSheetIOS.showActionSheetWithOptions(
+    console.log(this.props);
+    this.props.showActionSheetWithOptions(
       {
         options: ['Bookmark', 'Cancel'],
         cancelButtonIndex: 1,
         title: this.props.title,
       },
-      (buttonIndex) => console.log('Button selected', buttonIndex),
+      (buttonIndex) => {
+        if (buttonIndex === 0) {
+          this.props.onBookmark();
+        }
+      },
     );
   };
 
@@ -75,15 +80,20 @@ export default class NewsItem extends Component {
   }
 }
 
+const ConnectedApp = connectActionSheet(NewsItem);
+
+export default ConnectedApp;
+
 NewsItem.propTypes = {
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string,
   imageUrl: PropTypes.string,
   index: PropTypes.number.isRequired,
-  item: PropTypes.object,
   location: PropTypes.string,
+  onBookmark: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
+  showActionSheetWithOptions: PropTypes.func.isRequired,
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
 };
@@ -91,7 +101,6 @@ NewsItem.propTypes = {
 NewsItem.defaultProps = {
   description: '',
   imageUrl: '',
-  item: {},
   location: '',
   style: {},
 };
