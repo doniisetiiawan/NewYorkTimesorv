@@ -8,6 +8,7 @@ import {
   Platform,
   UIManager,
   Animated,
+  PanResponder,
 } from 'react-native';
 import OnboardingButtons from './OnboardingButtons';
 import OnboardingPanel from './OnboardingPanel';
@@ -55,6 +56,73 @@ export default class Onboarding extends React.Component {
     };
   }
 
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount = () => {
+    this.dragPosition = 0;
+    this.panListener = this.state.pan.addListener(
+      (value) => {
+        this.dragPosition = value.value;
+      },
+    );
+
+    this.panResponder = PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        this.state.pan.setOffset(this.dragPosition);
+        this.state.pan.setValue(0);
+      },
+
+      onPanResponderMove: (e, gestureState) => {
+        this.state.pan.setValue(gestureState.dx);
+      },
+
+      onPanResponderRelease: (e) => {
+        const movedLeft = e.nativeEvent.pageX < DEVICE_WIDTH / 2;
+        let updateState = false;
+        let toValue = movedLeft
+          ? DEVICE_WIDTH
+            * (this.state.currentIndex + 1)
+            * -1
+          : DEVICE_WIDTH
+            * (this.state.currentIndex - 1)
+            * -1;
+        if (toValue > 0) {
+          toValue = 0;
+        } else if (
+          toValue
+          < (DEVICE_WIDTH * onboardingContent.length
+            - DEVICE_WIDTH)
+            * -1
+        ) {
+          toValue = (DEVICE_WIDTH * onboardingContent.length
+              - DEVICE_WIDTH)
+            * -1;
+        } else {
+          updateState = true;
+        }
+        this.state.pan.flattenOffset();
+        if (updateState) {
+          this.transitionToNextPanel(
+            movedLeft
+              ? this.state.currentIndex + 1
+              : this.state.currentIndex - 1,
+          );
+        } else {
+          Animated.spring(this.state.pan, {
+            velocity: 0.5,
+            tensions: 0.2,
+            friction: 2,
+            toValue,
+          }).start();
+        }
+      },
+    });
+  };
+
+  componentWillUnmount = () => {
+    this.state.pan.removeListener(this.panListener);
+  };
+
   movePrevious = () => {
     this.transitionToNextPanel(this.state.currentIndex - 1);
   };
@@ -93,10 +161,18 @@ export default class Onboarding extends React.Component {
       <View style={styles.container}>
         <View style={styles.container}>
           <CollapsibleView
-            style={[styles.container]}
+            style={[
+              styles.container,
+              {
+                backgroundColor:
+                  onboardingContent[this.state.currentIndex]
+                    .backgroundColor,
+              },
+            ]}
             hide={this.state.isDone}
           >
             <Animated.View
+              {...this.panResponder.panHandlers}
               style={[
                 styles.panelContainer,
                 {
@@ -116,13 +192,6 @@ export default class Onboarding extends React.Component {
                 <OnboardingPanel key={i} {...panel} />
               ))}
             </Animated.View>
-            {/* <View style={styles.panelContainer}> */}
-            {/*  <OnboardingPanel */}
-            {/*    {...onboardingContent[ */}
-            {/*      this.state.currentIndex */}
-            {/*    ]} */}
-            {/*  /> */}
-            {/* </View> */}
             <OnboardingProgress
               totalItems={onboardingContent.length}
               pan={this.state.pan}
