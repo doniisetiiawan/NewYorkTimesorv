@@ -12,6 +12,7 @@ import SearchContainer from '../containers/SearchContainer';
 import * as globalStyles from '../styles/global';
 import AppText from './AppText';
 import BookmarksContainer from '../containers/BookmarksContainer';
+import Profile from "./Profile";
 
 // Set the status bar for iOS to light
 StatusBar.setBarStyle('light-content');
@@ -64,6 +65,11 @@ export default class HomeScreen extends Component {
                 ? 'ios-bookmarks'
                 : 'ios-bookmarks';
             }
+            if (route.name === 'Profile') {
+              iconName = focused
+                ? 'ios-person'
+                : 'ios-person';
+            }
 
             // You can return any component that you like here!
             return (
@@ -91,6 +97,10 @@ export default class HomeScreen extends Component {
         <Tab.Screen
           name="Bookmarks"
           component={BookmarksContainer}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
         />
       </Tab.Navigator>
     );
