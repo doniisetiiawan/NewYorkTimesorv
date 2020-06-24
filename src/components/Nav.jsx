@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import IntroScreen from './IntroScreen';
 import HomeScreen from './HomeScreen';
 import * as globalStyles from '../styles/global';
+import Onboarding from './Onboarding';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,14 @@ export default function Nav() {
           }}
         >
           {(props) => <HomeScreen {...props} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="Onboarding"
+          options={{
+            title: 'Onboarding',
+          }}
+        >
+          {(props) => <Onboarding {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

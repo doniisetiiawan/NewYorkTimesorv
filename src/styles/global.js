@@ -13,6 +13,7 @@ export const ACCENT_COLORS = [
   '#7d6e8b',
   '#bbc6f7',
 ];
+export const LIGHT_OVERLAY_COLOR = '#fff2';
 
 export const COMMON_STYLES = StyleSheet.create({
   pageContainer: {

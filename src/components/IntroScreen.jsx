@@ -29,7 +29,7 @@ function IntroScreen(props) {
       ]}
     >
       <TouchableOpacity
-        onPress={() => props.navigation.push('Home')}
+        onPress={() => props.navigation.push('Onboarding')}
       >
         <Title>React Native News Reader</Title>
         <AppText>Start Reading</AppText>
