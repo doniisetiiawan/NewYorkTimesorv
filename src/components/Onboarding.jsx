@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -6,6 +7,7 @@ import {
   LayoutAnimation,
   Platform,
   UIManager,
+  Animated,
 } from 'react-native';
 import OnboardingButtons from './OnboardingButtons';
 import OnboardingPanel from './OnboardingPanel';
@@ -13,6 +15,8 @@ import onboardingContent from '../config/onboarding';
 import CollapsibleView from './CollapsibleView';
 import AppText from './AppText';
 import { ACCENT_COLORS } from '../styles/global';
+import { DEVICE_WIDTH } from '../config/device';
+import OnboardingProgress from './OnboardingProgress';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,6 +51,7 @@ export default class Onboarding extends React.Component {
     this.state = {
       currentIndex: 0,
       isDone: false,
+      pan: new Animated.Value(0),
     };
   }
 
@@ -59,11 +64,13 @@ export default class Onboarding extends React.Component {
   };
 
   transitionToNextPanel = (nextIndex) => {
-    LayoutAnimation.configureNext(
-      LayoutAnimation.Presets.easeInEaseOut,
-    );
-    this.setState({
-      currentIndex: nextIndex,
+    Animated.timing(this.state.pan, {
+      toValue: nextIndex * DEVICE_WIDTH * -1,
+      duration: 300,
+    }).start(() => {
+      this.setState({
+        currentIndex: nextIndex,
+      });
     });
   };
 
@@ -89,13 +96,37 @@ export default class Onboarding extends React.Component {
             style={[styles.container]}
             hide={this.state.isDone}
           >
-            <View style={styles.panelContainer}>
-              <OnboardingPanel
-                {...onboardingContent[
-                  this.state.currentIndex
-                ]}
-              />
-            </View>
+            <Animated.View
+              style={[
+                styles.panelContainer,
+                {
+                  width:
+                    DEVICE_WIDTH * onboardingContent.length,
+                },
+                {
+                  transform: [
+                    {
+                      translateX: this.state.pan,
+                    },
+                  ],
+                },
+              ]}
+            >
+              {onboardingContent.map((panel, i) => (
+                <OnboardingPanel key={i} {...panel} />
+              ))}
+            </Animated.View>
+            {/* <View style={styles.panelContainer}> */}
+            {/*  <OnboardingPanel */}
+            {/*    {...onboardingContent[ */}
+            {/*      this.state.currentIndex */}
+            {/*    ]} */}
+            {/*  /> */}
+            {/* </View> */}
+            <OnboardingProgress
+              totalItems={onboardingContent.length}
+              pan={this.state.pan}
+            />
             <OnboardingButtons
               totalItems={onboardingContent.length}
               currentIndex={this.state.currentIndex}
